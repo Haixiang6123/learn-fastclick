@@ -1,13 +1,28 @@
 import React from 'react';
-import {Select, Button} from "antd";
+import {Select, Button, Upload, message} from 'antd';
 
 const { Option } = Select;
 
 function App() {
   const names = ['Jack', 'Dany', 'Jerry']
 
-  const antdClick = () => alert('Antd按钮');
-  const normalClick = () => alert('普通按钮');
+  const props = {
+    name: 'file',
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    headers: {
+      authorization: 'authorization-text',
+    },
+    onChange(info: any) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
 
   return (
     <div>
@@ -18,18 +33,10 @@ function App() {
         ))}
       </Select>
 
-      <h1>测试普通选择器</h1>
-      <select>
-        {names.map((n) => (
-          <option key={n} value={n}>{n}</option>
-        ))}
-      </select>
-
-      <h1>测试Antd按钮</h1>
-      <Button onClick={antdClick}>Hello</Button>
-
-      <h1>测试普通按钮</h1>
-      <button onClick={normalClick}>Hello</button>
+      <h1>测试上传</h1>
+      <Upload {...props}>
+        <Button>上传文件</Button>
+      </Upload>
     </div>
   );
 }
