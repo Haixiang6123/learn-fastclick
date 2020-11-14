@@ -1,5 +1,5 @@
 import React from 'react';
-import {Select, Button, Upload, message} from 'antd';
+import {Select, Button, Upload, message, Dropdown, Menu} from 'antd';
 
 const { Option } = Select;
 
@@ -24,6 +24,27 @@ function App() {
     },
   };
 
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+          1st menu item
+        </a>
+      </Menu.Item>
+      <Menu.Item>
+        <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+          2nd menu item
+        </a>
+      </Menu.Item>
+      <Menu.Item>
+        <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
+          3rd menu item
+        </a>
+      </Menu.Item>
+      <Menu.Item danger>a danger item</Menu.Item>
+    </Menu>
+  );
+
   return (
     <div>
       <h1>测试选择器</h1>
@@ -37,6 +58,13 @@ function App() {
       <Upload {...props}>
         <Button>上传文件</Button>
       </Upload>
+
+      <h1>测试 Dropdown</h1>
+      <Dropdown overlay={menu}>
+        <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+          Hover me
+        </a>
+      </Dropdown>
     </div>
   );
 }
